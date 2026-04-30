@@ -58,10 +58,10 @@ python tests/test_risk_engine.py                    # Run unit tests
 
 ### Dashboard & API
 
-**The easiest way to run the full stack for a demo is using the provided batch script:**
+**For presenting at the hackathon, the easiest way to run the full stack locally is using the provided batch script:**
 Double click `start_demo.bat` in the root folder. This will automatically launch both the API and the React Dashboard in two separate terminal windows.
 
-Alternatively, to run them manually:
+Alternatively, to run them manually for development:
 
 **Terminal 1 (Backend API):**
 ```bash
@@ -78,7 +78,17 @@ npm run dev
 ```
 *(Runs on http://localhost:3000 or 3001)*
 
-## 🎤 Hackathon Demo Guide
+## 🚀 Production Deployment (How to run it as a product)
+
+If you are deploying JananiAI as a real-world product for a healthcare NGO or government body, the architecture is designed to be fully decoupled:
+
+1. **The Edge App (Android/ASHAShield):** Build the release APK (`./gradlew assembleRelease`). The TFLite model is embedded directly in the APK. Distribute this via MDM (Mobile Device Management) or the Google Play Store to ASHA workers' offline devices.
+2. **The Cloud Server (FastAPI):** Deploy the `api/` directory to a cloud provider like AWS EC2, Google Cloud Run, or Render. Use `gunicorn` with `uvicorn` workers for production traffic. Update the `SYNC_URL` in the mobile app to point to your public domain.
+3. **The Web Dashboard (React):** Build the static site (`npm run build`) and host it on Vercel, Netlify, or an AWS S3 Bucket. Configure it to fetch data from your cloud FastAPI server.
+
+---
+
+## 🎤 Hackathon Demo Guide (How to present it)
 
 When presenting JananiAI to the judges, follow this flow to highlight both the social impact and the deep tech architecture:
 
@@ -91,7 +101,7 @@ When presenting JananiAI to the judges, follow this flow to highlight both the s
 ## Key Features
 
 ### ML Model
-- **Clinical Alignment:** 14-factor composite scoring based on PHC triage logic.
+- **Clinical Alignment:** 13 clinical features mapped to standard PHC triage logic.
 - **Robust Architecture:** Keras MLP with `BatchNormalization`, `EarlyStopping`, and `compute_class_weight` to ensure >90% recall for HIGH risk cases.
 - **Explainability:** Real `shap.DeepExplainer` mapping mathematical feature importance into rural-context Hindi reason templates with value interpolation.
 - **Edge Deployment:** Float16 TFLite quantization yielding a <11 KB model payload suitable for offline Android devices without internet connectivity.
