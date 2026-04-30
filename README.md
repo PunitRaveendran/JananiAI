@@ -36,8 +36,11 @@ JananiAI/
 │   │   └── components/         # Real-time ASHA monitoring UI
 │   └── package.json
 │
-└── android/                     # Android App
-    └── ...
+├── android/                    # Android App (Native Java)
+│   └── ...                     # Core edge app with TFLite integration
+│
+└── ASHAShield/                 # Mobile App Prototype
+    └── ...                     # React Native / Expo mobile app prototype
 ```
 
 ## Quick Start
@@ -80,7 +83,7 @@ npm run dev
 When presenting JananiAI to the judges, follow this flow to highlight both the social impact and the deep tech architecture:
 
 1. **The Hook (The Problem):** Explain that rural ASHA workers have no predictive triage tools and collect ANC data on paper, leading to missed high-risk pregnancies.
-2. **The Edge Solution (Android App):** Show the Android app running completely offline. Enter high-risk vitals (e.g., BP 160/105). Emphasize that the embedded Keras TFLite model is only **10.5 KB** so it runs instantly on cheap smartphones without internet.
+2. **The Edge Solution (Android App / ASHAShield):** Show the mobile app running completely offline. Enter high-risk vitals (e.g., BP 160/105). Emphasize that the embedded Keras TFLite model is only **10.5 KB** so it runs instantly on cheap smartphones without internet.
 3. **The Explainability (TTS):** Show the Risk Card. Point out that it's not a black box—the model uses SHAP to generate localized Hindi explanations (e.g., *"BP bahut zyada hai"*). Let the app read it aloud via TTS.
 4. **The Central Command (React Dashboard):** Open `localhost:3000` (or 3001). Explain that when the ASHA worker gets internet, the app syncs to the FastAPI backend. Show the supervisor view, the district heatmap, and the live alerts for the high-risk patient you just entered.
 5. **The Deep Tech:** Open `localhost:8000/docs` to prove you built a real REST API. Mention the ML architecture: A Keras MLP with `BatchNormalization`, Early Stopping, and class-weight balancing that achieved **89.3% accuracy and 92.5% HIGH risk recall**.
